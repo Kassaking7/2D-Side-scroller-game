@@ -12,29 +12,37 @@ public class PlayerMoveScript : MonoBehaviour
     private BoxCollider2D myFeet;
     private bool isGround;
     private bool DoubleJumpIsAble;
+    private PlayerHealth playerHealth;
     // Start is called before the first frame update
     void Start()
     {
         myRigdbody = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
         myFeet = GetComponent<BoxCollider2D>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Flip();
-        Run();
-        Jump();
-        //Attack();
-        CheckGround();
-        SwitchAnimation();
+        if (playerHealth.health > 0)
+        {
+            Flip();
+            Run();
+            Jump();
+            CheckGround();
+            SwitchAnimation();
+        } else
+        {
+            myRigdbody.velocity = new Vector2(0, myRigdbody.velocity.y);
+        }
 
     }
 
     void CheckGround()
     {
-        isGround = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        isGround = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
+            myFeet.IsTouchingLayers(LayerMask.GetMask("MovingPlatform"));
     }
 
     void Run()
@@ -99,10 +107,10 @@ public class PlayerMoveScript : MonoBehaviour
 
         if (myAnim.GetBool("DoubleJump"))
         {
-            if (myRigdbody.velocity.y < 0.0f)
+            if (myRigdbody.velocity.y <= 0.0f)
             {
                 myAnim.SetBool("DoubleJump", false);
-                myAnim.SetBool("DoubleFall", true);
+                //myAnim.SetBool("DoubleFall", true);
             }
         }
         else if (isGround)
@@ -111,14 +119,4 @@ public class PlayerMoveScript : MonoBehaviour
             myAnim.SetBool("Idle", true);
         }
     }
-
-    //void Attack()
-    //{
-    //    if (Input.GetButtonDown("Attack"))
-    //    {
-    //        Debug.Log("Attack Button Down");
-    //        myAnim.SetTrigger("Attack");
-            
-    //    }
-    //}
 }

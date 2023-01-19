@@ -6,20 +6,31 @@ public class PlayerAttack : MonoBehaviour
 {
     private Animator anim;
     public int Damage;
+    public float attackTime;
     public float startTime;
     public float time;
+    private float attackTimeCount;
     private PolygonCollider2D coll2D;
     // Start is called before the first frame update
     void Start()
     {
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         coll2D = GetComponent<PolygonCollider2D>();
+        attackTimeCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Attack();
+        if (attackTimeCount <= 0)
+        {
+            Attack();
+        } else
+        {
+            attackTimeCount -= Time.deltaTime;
+        }
+
+        
     }
 
     void Attack()
@@ -28,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
         {
             anim.SetTrigger("Attack");
             StartCoroutine(StartAttack());
+            attackTimeCount = attackTime;
         }
     }
 
