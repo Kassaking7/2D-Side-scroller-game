@@ -20,11 +20,11 @@ TagManager:
   - Enemy
   - Spike
   - MovingPlatform
-  - 
-  - 
-  - 
-  - 
-  - 
+  - OneWayPlatform
+  - Ladder
+  - Item
+  - TriggerBox
+  - Weapen
   - 
   - 
   - 
@@ -49,8 +49,17 @@ TagManager:
   - name: Ground
     uniqueID: 1520885073
     locked: 0
+  - name: Ladder
+    uniqueID: 1132367639
+    locked: 0
+  - name: Item
+    uniqueID: 2516468403
+    locked: 0
   - name: Enemy
     uniqueID: 972627435
+    locked: 0
+  - name: Weapon
+    uniqueID: 3710303403
     locked: 0
   - name: Player
     uniqueID: 862430157

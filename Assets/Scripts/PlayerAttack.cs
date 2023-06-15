@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     public float time;
     private float attackTimeCount;
     private PolygonCollider2D coll2D;
+    private PlayerInputAction controls;
+
     // Start is called before the first frame update
     void Start()
     {

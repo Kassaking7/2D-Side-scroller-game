@@ -8,6 +8,10 @@ public abstract class Enemy : MonoBehaviour
     public int damage;
     public float flashTime;
     public GameObject bloodEffect;
+    public GameObject dropCoin;
+
+    public GameObject floatPoint;
+
     private SpriteRenderer sr;
     private Color originalColor;
     private PlayerHealth playerHealth;
@@ -24,7 +28,9 @@ public abstract class Enemy : MonoBehaviour
     {
         if (health <= 0)
         {
+            Instantiate(dropCoin, transform.position, Quaternion.identity);
             Destroy(gameObject);
+
         }
     }
 
@@ -34,6 +40,8 @@ public abstract class Enemy : MonoBehaviour
         health -= _damage;
         Instantiate(bloodEffect, transform.position, Quaternion.identity);
         GameController.camShake.Shake();
+        GameObject gb = Instantiate(floatPoint,transform.position, Quaternion.identity) as GameObject;
+        gb.transform.GetChild(0).GetComponent<TextMesh>().text = _damage.ToString();
     }
 
     void FlashColor(float time)
