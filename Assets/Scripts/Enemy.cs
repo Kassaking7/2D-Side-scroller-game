@@ -29,8 +29,8 @@ public abstract class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Instantiate(dropCoin, transform.position, Quaternion.identity);
+            Debug.Log("destory");
             Destroy(gameObject);
-
         }
     }
 
